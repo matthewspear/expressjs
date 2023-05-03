@@ -1,16 +1,13 @@
-import express from "express";
+import { config } from 'dotenv';
 
-const app = express();
+if (process.env.NODE_ENV !== 'production') {
+  config();
+}
+// call after config() to access the env variables
+import { app } from './api';
+
 const port = process.env.PORT || 3333;
 
-app.use(express.json());
-app.use(express.raw({ type: "application/vnd.custom-type" }));
-app.use(express.text({ type: "text/html" }));
-
-app.get("/", async (req, res) => {
-  res.json({ body: "Hello world!" });
-});
-
-app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
-});
+app.listen(port, () =>
+  console.log(`API available on http://localhost:${port}`)
+);

@@ -1,0 +1,9 @@
+.gitkeep
+.env*
+*.ico
+*.lock
+db/migrations
+.yarn
+.pnp*
+
+node_modules

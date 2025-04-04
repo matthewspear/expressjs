@@ -22,7 +22,7 @@ app.get("/baixar-video/:videoId", async (req: Request, res: Response) => {
     const response = await axios.get(pandaUrl, {
       responseType: "stream",
       headers: {
-        Authorization: "Bearer panda-ce3029fc97b55c352ada3911badfdf9b7d533d64e6c46d6cdfac5cbba369f137",
+        Authorization: "Bearer ",
       },
     });
 

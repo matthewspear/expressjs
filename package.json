@@ -24,3 +24,6 @@
     "typescript": "^5.3.3"
   }
 }
+
+fix: adiciona axios e @types/node ao package.json
+

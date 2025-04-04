@@ -1,13 +1,56 @@
-import { config } from 'dotenv';
+import express, { Request, Response } from "express";
+import axios from "axios";
 
-if (process.env.NODE_ENV !== 'production') {
-  config();
-}
-// call after config() to access the env variables
-import { app } from './api';
+const app = express();
+const port = process.env.PORT || 3000;
 
-const port = process.env.PORT || 3333;
+// Rota de teste
+app.get("/", (req: Request, res: Response) => {
+  res.json({ status: "ok" });
+  return;
+});
 
-app.listen(port, () =>
-  console.log(`API available on http://localhost:${port}`)
-);
+// Rota para baixar vídeo do Panda Video
+app.get("/baixar-video/:videoId", async (req: Request, res: Response) => {
+  const { videoId } = req.params;
+  const pandaUrl = `https://download-us02.pandavideo.com:7443/videos/${videoId}/download`;
+
+  console.log(`🔍 Baixando vídeo: ${videoId}`);
+  console.log(`🌍 URL gerada: ${pandaUrl}`);
+
+  try {
+    const response = await axios.get(pandaUrl, {
+      responseType: "stream",
+      headers: {
+        Authorization: "Bearer ",
+      },
+    });
+
+    console.log("✅ Resposta recebida do Panda Video");
+
+    res.setHeader("Content-Disposition", `attachment; filename="${videoId}.mp4"`);
+    res.setHeader("Content-Type", "video/mp4");
+
+    response.data.pipe(res);
+    return;
+  } catch (error: any) {
+    console.error("❌ Erro ao baixar o vídeo:", error.message);
+
+    res.status(500).json({
+      error: "Erro ao baixar o vídeo",
+      details: error.message,
+    });
+    return;
+  }
+});
+
+// Iniciar o servidor
+app.listen(port, () => {
+  console.log(`🚀 Servidor rodando na porta ${port}`);
+});
+
+
+app.listen(port, () => {
+  console.log(`🚀 Servidor rodando na porta ${port}`);
+});
+

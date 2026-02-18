@@ -15,13 +15,13 @@ app.use(express.text({ type: 'text/html' }));
 
 // Healthcheck endpoint
 app.get('/', (req, res) => {
-  res.status(200).send({ status: 'ok' });
+  res.status(200).json({ status: 'ok' });
 });
 
 const api = express.Router();
 
 api.get('/hello', (req, res) => {
-  res.status(200).send({ message: 'hello world' });
+  res.status(200).json({ message: 'hello world' });
 });
 
 // Version the api
@@ -36,6 +36,6 @@ app.use(
     next: express.NextFunction
   ) => {
     console.error(err.stack);
-    res.status(500).send({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 );

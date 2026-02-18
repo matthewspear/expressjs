@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "incremental": true,
-    "target": "es2017",
+    "target": "es2022",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
@@ -15,6 +15,5 @@
     "lib": ["ESNext"],
     "strictNullChecks": false
   },
-  "compileOnSave": true,
   "include": ["src"]
 }

@@ -1,7 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 
 export const app = express();
+
+app.set('trust proxy', 1);
+app.use(helmet());
 
 app.use(cors({ origin: true }));
 
@@ -22,3 +26,16 @@ api.get('/hello', (req, res) => {
 
 // Version the api
 app.use('/api/v1', api);
+
+// Error handler
+app.use(
+  (
+    err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    console.error(err.stack);
+    res.status(500).send({ error: 'Internal server error' });
+  }
+);

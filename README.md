@@ -4,23 +4,32 @@ This example starts an [ExpressJS](https://expressjs.com/) server written in [Ty
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/n_2mnn?referralCode=matt)
 
-## ✨ Features
+## Features
 
-- Express
+- Express 5
 - TypeScript
+- Security headers via [helmet](https://helmetjs.github.io/)
+- CORS enabled
 
-## 💁‍♀️ How to use
+## How to use
 
-- Install dependencies `yarn`
-- Connect to your Railway project `railway link`
-- Start the development server `railway run yarn dev`
+- Install dependencies `pnpm install`
+- Copy `.env.example` to `.env` (optional, defaults to port 3333)
+- Start the development server `pnpm dev`
+- Build for production `pnpm build`
 
-## 📝 Notes
+## Notes
 
-The server started simply returns a healthcheck `status: "ok"` payload in JSON. The server code is located in `src/index.ts`.
+The server returns a healthcheck `status: "ok"` payload in JSON at the root. The server code is located in `src/index.ts`.
 
-A versioned API route is available in `src/api.ts` and example function `hello` at `/api/v1/hello`.
+A versioned API route is available in `src/api.ts` with an example endpoint at `/api/v1/hello`.
 
-## 👏 Thanks
+Express 5 handles async route handlers natively — no wrapper needed.
+
+## Railway
+
+Set `NODE_ENV=production` in your Railway service variables. Railway does not set this automatically.
+
+## Thanks
 
 - [Faraz Patankar](https://github.com/FarazPatankar) / Railway team for the [original template](https://github.com/railwayapp-templates/expressjs)
